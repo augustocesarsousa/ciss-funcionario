@@ -1,0 +1,15 @@
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario1', 'Sobrenome1', 'email1@email.com.br', '11111111111');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario2', 'Sobrenome2', 'email2@email.com.br', '22222222222');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario3', 'Sobrenome3', 'email3@email.com.br', '33333333333');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario4', 'Sobrenome4', 'email4@email.com.br', '44444444444');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario5', 'Sobrenome5', 'email5@email.com.br', '55555555555');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario6', 'Sobrenome6', 'email6@email.com.br', '66666666666');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario7', 'Sobrenome7', 'email7@email.com.br', '77777777777');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario8', 'Sobrenome8', 'email8@email.com.br', '88888888888');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario9', 'Sobrenome9', 'email9@email.com.br', '99999999999');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario10', 'Sobrenome10', 'email10@email.com.br', '10101010101');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario11', 'Sobrenome11', 'email11@email.com.br', '20202020202');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario12', 'Sobrenome12', 'email12@email.com.br', '30303030303');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario13', 'Sobrenome13', 'email13@email.com.br', '40404040404');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario14', 'Sobrenome14', 'email14@email.com.br', '50505050505');
+INSERT INTO tb_funcionario (nome, sobrenome, email, nis) VALUES ('Funcionario15', 'Sobrenome15', 'email15@email.com.br', '60606060606');
