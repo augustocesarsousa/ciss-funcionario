@@ -16,6 +16,7 @@ public class FuncionarioRepositoryTest {
     private FuncionarioRepository funcionarioRepository;
     private long totalFuncionarios;
     private long existingId;
+    private long noExistigId;
 
     @Autowired
     public FuncionarioRepositoryTest(FuncionarioRepository funcionarioRepository) {
@@ -26,6 +27,7 @@ public class FuncionarioRepositoryTest {
     void setUp() throws Exception {
         totalFuncionarios = 15;
         existingId = 1L;
+        noExistigId = 9999L;
     }
 
     @Test
@@ -46,4 +48,10 @@ public class FuncionarioRepositoryTest {
         Assertions.assertTrue(funcionario.isPresent());
     }
 
+    @Test
+    public void findByIdShouldReturnNullObjectWhenIdDoesNotExists() {
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(noExistigId);
+
+        Assertions.assertFalse(funcionario.isPresent());
+    }
 }
