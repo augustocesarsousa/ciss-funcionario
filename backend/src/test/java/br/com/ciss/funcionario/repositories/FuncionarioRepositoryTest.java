@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.Optional;
 
@@ -62,5 +63,12 @@ public class FuncionarioRepositoryTest {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(noExistigId);
 
         Assertions.assertFalse(funcionario.isPresent());
+    }
+
+    @Test
+    public void deleteShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
+           funcionarioRepository.deleteById(noExistigId);
+        });
     }
 }
