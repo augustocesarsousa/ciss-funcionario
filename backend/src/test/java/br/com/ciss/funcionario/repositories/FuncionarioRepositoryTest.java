@@ -54,4 +54,13 @@ public class FuncionarioRepositoryTest {
 
         Assertions.assertFalse(funcionario.isPresent());
     }
+
+    @Test
+    public void deleteShouldDeleteObjectWhenIdExists() {
+        funcionarioRepository.deleteById(existingId);
+
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(noExistigId);
+
+        Assertions.assertFalse(funcionario.isPresent());
+    }
 }
