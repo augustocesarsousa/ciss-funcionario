@@ -8,11 +8,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 @DataJpaTest
 public class FuncionarioRepositoryTest {
 
     private FuncionarioRepository funcionarioRepository;
     private long totalFuncionarios;
+    private long existingId;
 
     @Autowired
     public FuncionarioRepositoryTest(FuncionarioRepository funcionarioRepository) {
@@ -22,6 +25,7 @@ public class FuncionarioRepositoryTest {
     @BeforeEach
     void setUp() throws Exception {
         totalFuncionarios = 15;
+        existingId = 1L;
     }
 
     @Test
@@ -33,6 +37,13 @@ public class FuncionarioRepositoryTest {
 
         Assertions.assertNotNull(funcionario.getId());
         Assertions.assertEquals(totalFuncionarios + 1, funcionario.getId());
+    }
+
+    @Test
+    public void findByIdShouldReturnNotNullObjectWhenIdExists() {
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(existingId);
+
+        Assertions.assertTrue(funcionario.isPresent());
     }
 
 }
