@@ -3,6 +3,7 @@ package br.com.ciss.funcionario.services;
 import br.com.ciss.funcionario.dtos.FuncionarioDTO;
 import br.com.ciss.funcionario.entities.Funcionario;
 import br.com.ciss.funcionario.repositories.FuncionarioRepository;
+import br.com.ciss.funcionario.services.exceptions.ResourceNotFoundException;
 import br.com.ciss.funcionario.tests.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,5 +59,13 @@ public class FuncionarioServiceTests {
 
         Assertions.assertNotNull(result);
         verify(funcionarioRepository, times(1)).findById(existingId);
+    }
+
+    @Test
+    public void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            funcionarioService.findById(noExistingId);
+        });
+        verify(funcionarioRepository, times(1)).findById(noExistingId);
     }
 }
