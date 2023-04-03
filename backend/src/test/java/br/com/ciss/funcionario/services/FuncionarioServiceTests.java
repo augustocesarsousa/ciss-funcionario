@@ -90,4 +90,12 @@ public class FuncionarioServiceTests {
 
         Assertions.assertNotNull(result);
     }
+
+    @Test
+    public void updateShouldReturnFuncionarioDtoWhenIdExists() {
+        FuncionarioDTO result = funcionarioService.update(existingId, funcionarioDTO);
+
+        Assertions.assertNotNull(result);
+        verify(funcionarioRepository, times(1)).save(funcionario);
+    }
 }
