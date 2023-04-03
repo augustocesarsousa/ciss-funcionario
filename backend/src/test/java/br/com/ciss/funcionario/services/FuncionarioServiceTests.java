@@ -98,4 +98,11 @@ public class FuncionarioServiceTests {
         Assertions.assertNotNull(result);
         verify(funcionarioRepository, times(1)).save(funcionario);
     }
+
+    @Test
+    public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            funcionarioService.update(noExistingId, funcionarioDTO);
+        });
+    }
 }
