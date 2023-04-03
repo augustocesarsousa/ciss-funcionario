@@ -57,6 +57,8 @@ public class FuncionarioServiceTests {
         when(funcionarioRepository.findById(existingId)).thenReturn(Optional.of(funcionario));
 
         when(funcionarioCustomRepository.findByFilter(null, null, null, null,null, pageable)).thenReturn(page);
+
+        doNothing().when(funcionarioRepository).deleteById(existingId);
     }
 
     @Test
@@ -104,5 +106,13 @@ public class FuncionarioServiceTests {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             funcionarioService.update(noExistingId, funcionarioDTO);
         });
+    }
+
+    @Test
+    public void deleteShouldDoNotNothingWhenIdExists() {
+        Assertions.assertDoesNotThrow(() -> {
+            funcionarioService.delete(existingId);
+        });
+        verify(funcionarioRepository, times(1)).deleteById(existingId);
     }
 }
