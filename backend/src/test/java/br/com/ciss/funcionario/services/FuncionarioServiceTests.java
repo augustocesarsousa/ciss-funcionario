@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -26,14 +28,19 @@ public class FuncionarioServiceTests {
 
     private Funcionario funcionario;
     private FuncionarioDTO funcionarioDTO;
-    private long totalFuncionarios;
+    private long existingId;
+    private long noExistingId;
 
     @BeforeEach
     void setUp() throws Exception {
         funcionario = Factory.createFuncionarioTest();
         funcionarioDTO = Factory.createFuncionarioDtoTest();
+        existingId = 1L;
+        noExistingId = 9999L;
 
         when(funcionarioRepository.save(any())).thenReturn(funcionario);
+
+        when(funcionarioRepository.findById(existingId)).thenReturn(Optional.of(funcionario));
     }
 
     @Test
@@ -43,5 +50,13 @@ public class FuncionarioServiceTests {
         FuncionarioDTO result = funcionarioService.create(funcionarioDTO);
 
         Assertions.assertNotNull(result.getId());
+    }
+
+    @Test
+    public void findByIdShouldReturnFuncionarioDtoWhenIdExists() {
+        FuncionarioDTO result = funcionarioService.findById(existingId);
+
+        Assertions.assertNotNull(result);
+        verify(funcionarioRepository, times(1)).findById(existingId);
     }
 }
