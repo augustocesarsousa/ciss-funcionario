@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -59,6 +60,7 @@ public class FuncionarioServiceTests {
         when(funcionarioCustomRepository.findByFilter(null, null, null, null,null, pageable)).thenReturn(page);
 
         doNothing().when(funcionarioRepository).deleteById(existingId);
+        doThrow(EmptyResultDataAccessException.class).when(funcionarioRepository).deleteById(noExistingId);
     }
 
     @Test
@@ -114,5 +116,13 @@ public class FuncionarioServiceTests {
             funcionarioService.delete(existingId);
         });
         verify(funcionarioRepository, times(1)).deleteById(existingId);
+    }
+
+    @Test
+    public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            funcionarioService.delete(noExistingId);
+        });
+        verify(funcionarioRepository, times(1)).deleteById(noExistingId);
     }
 }
