@@ -48,7 +48,22 @@ public class FuncionarioService {
     public Page<FuncionarioDTO> findByFilterPaged(String idString, String nome, String sobrenome, String email, String nis, Pageable pageable) {
         Long id = null;
         if(idString != null) id = Long.parseLong(idString);
+
         Page<Funcionario> page = funcionarioCustomRepository.findByFilter(id, nome, sobrenome, email, nis, pageable);
+
         return page.map(funcionario -> new FuncionarioDTO(funcionario));
+    }
+
+    @Transactional
+    public FuncionarioDTO update(Long id, FuncionarioDTO funcionarioDTO) {
+        Optional<Funcionario> funcionarioOptional = funcionarioRepository.findById(id);
+
+        Funcionario funcionario = funcionarioOptional.orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado!"));
+
+        CopyDtoToEntity.copyFuncionarioDtoToFuncionario(funcionarioDTO, funcionario);
+
+        funcionario = funcionarioRepository.save(funcionario);
+
+        return new FuncionarioDTO(funcionario);
     }
 }
