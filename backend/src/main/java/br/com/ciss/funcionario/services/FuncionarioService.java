@@ -6,6 +6,7 @@ import br.com.ciss.funcionario.repositories.FuncionarioRepository;
 import br.com.ciss.funcionario.repositories.FuncionarioCustomRepository;
 import br.com.ciss.funcionario.utils.CopyDtoToEntity;
 import br.com.ciss.funcionario.services.exceptions.ResourceNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -65,5 +66,14 @@ public class FuncionarioService {
         funcionario = funcionarioRepository.save(funcionario);
 
         return new FuncionarioDTO(funcionario);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        try {
+            funcionarioRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Funcionário não encontrado!");
+        }
     }
 }
