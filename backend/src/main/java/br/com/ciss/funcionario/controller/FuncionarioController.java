@@ -32,8 +32,8 @@ public class FuncionarioController {
     @GetMapping
     public ResponseEntity<Page<FuncionarioDTO>> findByFilterPaged(
             @RequestParam(value = "id", required = false) String id,
-            @RequestParam(value = "nome", required = false) String nome,
-            @RequestParam(value = "sobrenome", required = false) String sobrenome,
+            @RequestParam(value = "nome", defaultValue = "", required = false) String nome,
+            @RequestParam(value = "sobrenome", defaultValue = "", required = false) String sobrenome,
             @RequestParam(value = "email", required = false) String email,
             @RequestParam(value = "nis", required = false) String nis,
             @PageableDefault(page = 0, size = 5) Pageable pageable
