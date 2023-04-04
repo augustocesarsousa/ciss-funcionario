@@ -104,4 +104,10 @@ public class FuncionarioControllerIT {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    public void deleteShouldDoNothingWhenIdExists() throws Exception {
+        mockMvc.perform(delete("/funcionarios/{id}", existingId))
+                .andExpect(status().isNoContent());
+    }
 }
