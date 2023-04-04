@@ -56,6 +56,19 @@ public class FuncionarioControllerIT {
     }
 
     @Test
+    public void createShouldReturnUnprocessableEntityWhenNomeIsInvalid() throws Exception {
+        funcionarioDTO.setNome("a");
+        String jsonBody = objectMapper.writeValueAsString((funcionarioDTO));
+
+        mockMvc.perform(post("/funcionarios")
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.errors[0].message").value("Nome precisa ter entre 2 e 30 caracteres!"));
+    }
+
+    @Test
     public void findByFilterPagedShouldReturnSortedPageWhenSortByName() throws Exception{
         mockMvc.perform(get("/funcionarios?page=0&size=12&sort=nome,asc"))
                 .andExpect(status().isOk())
