@@ -12,6 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 @SpringBootTest
 @Transactional
 public class FuncionarioServiceIT {
@@ -73,5 +76,12 @@ public class FuncionarioServiceIT {
         Page<FuncionarioDTO> result = funcionarioService.findByFilterPaged(null, null, null, null, null, pageRequest);
 
         Assertions.assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void updateShouldReturnFuncionarioDtoWhenIdExists() {
+        FuncionarioDTO result = funcionarioService.update(existingId, funcionarioDTO);
+
+        Assertions.assertNotNull(result);
     }
 }
