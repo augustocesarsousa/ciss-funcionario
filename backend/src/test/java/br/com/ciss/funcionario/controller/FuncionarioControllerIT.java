@@ -80,4 +80,17 @@ public class FuncionarioControllerIT {
         mockMvc.perform(get("/funcionarios/{id}", noExistingId))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    public void updateShouldReturnFuncionarioDtoWhenIdExists() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(funcionarioDTO);
+
+        mockMvc.perform(put("/funcionarios/{id}", existingId)
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.nome").exists());
+    }
 }
