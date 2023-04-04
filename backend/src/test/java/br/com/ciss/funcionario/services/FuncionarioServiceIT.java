@@ -84,4 +84,11 @@ public class FuncionarioServiceIT {
 
         Assertions.assertNotNull(result);
     }
+
+    @Test
+    public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            funcionarioService.update(noExistingId, funcionarioDTO);
+        });
+    }
 }
