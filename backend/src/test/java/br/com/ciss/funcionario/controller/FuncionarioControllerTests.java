@@ -2,6 +2,7 @@ package br.com.ciss.funcionario.controller;
 
 import br.com.ciss.funcionario.dtos.FuncionarioDTO;
 import br.com.ciss.funcionario.services.FuncionarioService;
+import br.com.ciss.funcionario.services.exceptions.ResourceNotFoundException;
 import br.com.ciss.funcionario.tests.Factory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,18 +38,21 @@ public class FuncionarioControllerTests {
     private FuncionarioDTO funcionarioDTO;
     private PageImpl<FuncionarioDTO> page;
     private long existingId;
+    private long noExistingId;
 
     @BeforeEach
     void setUp() throws Exception {
         funcionarioDTO = Factory.createFuncionarioDtoTest();
         page = new PageImpl<>(List.of(funcionarioDTO));
         existingId = 1L;
+        noExistingId = 9999L;
 
         when(funcionarioService.create(any())).thenReturn(funcionarioDTO);
 
         when(funcionarioService.findByFilterPaged(any(), any(), any(), any(), any(), any())).thenReturn(page);
 
         when(funcionarioService.findById(existingId)).thenReturn(funcionarioDTO);
+        when(funcionarioService.findById(noExistingId)).thenThrow(ResourceNotFoundException.class);
     }
 
     @Test
@@ -78,5 +82,11 @@ public class FuncionarioControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.nome").exists());
+    }
+
+    @Test
+    public void findByIdShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
+        mockMvc.perform(get("/funcionarios/{id}", noExistingId))
+                .andExpect(status().isNotFound());
     }
 }
