@@ -13,9 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 @SpringBootTest
 @Transactional
 public class FuncionarioServiceIT {
@@ -29,7 +26,6 @@ public class FuncionarioServiceIT {
     private FuncionarioDTO funcionarioDTO;
     private long existingId;
     private long noExistingId;
-
     private long totalFuncionarios;
 
     @BeforeEach
