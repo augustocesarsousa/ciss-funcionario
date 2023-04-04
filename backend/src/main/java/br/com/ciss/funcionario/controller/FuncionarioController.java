@@ -42,4 +42,11 @@ public class FuncionarioController {
 
         return ResponseEntity.ok().body(funcionarios);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<FuncionarioDTO> findById(@PathVariable Long id) {
+        FuncionarioDTO funcionarioDTO = funcionarioService.findById(id);
+
+        return ResponseEntity.ok().body(funcionarioDTO);
+    }
 }
