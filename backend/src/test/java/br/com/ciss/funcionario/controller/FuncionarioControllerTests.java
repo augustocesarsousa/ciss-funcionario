@@ -55,6 +55,7 @@ public class FuncionarioControllerTests {
         when(funcionarioService.findById(noExistingId)).thenThrow(ResourceNotFoundException.class);
 
         when(funcionarioService.update(eq(existingId), any())).thenReturn(funcionarioDTO);
+        when(funcionarioService.update(eq(noExistingId), any())).thenThrow(ResourceNotFoundException.class);
     }
 
     @Test
@@ -103,5 +104,16 @@ public class FuncionarioControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.nome").exists());
+    }
+
+    @Test
+    public void updateShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(funcionarioDTO);
+
+        mockMvc.perform(put("/funcionarios/{id}", noExistingId)
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
