@@ -110,4 +110,10 @@ public class FuncionarioControllerIT {
         mockMvc.perform(delete("/funcionarios/{id}", existingId))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void deleteShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
+        mockMvc.perform(delete("/funcionarios/{id}", noExistingId))
+                .andExpect(status().isNotFound());
+    }
 }
