@@ -17,9 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -53,6 +53,8 @@ public class FuncionarioControllerTests {
 
         when(funcionarioService.findById(existingId)).thenReturn(funcionarioDTO);
         when(funcionarioService.findById(noExistingId)).thenThrow(ResourceNotFoundException.class);
+
+        when(funcionarioService.update(eq(existingId), any())).thenReturn(funcionarioDTO);
     }
 
     @Test
@@ -88,5 +90,18 @@ public class FuncionarioControllerTests {
     public void findByIdShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
         mockMvc.perform(get("/funcionarios/{id}", noExistingId))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void updateShouldReturnFuncionarioDtoWhenIdExists() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(funcionarioDTO);
+
+        mockMvc.perform(put("/funcionarios/{id}", existingId)
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.nome").exists());
     }
 }
