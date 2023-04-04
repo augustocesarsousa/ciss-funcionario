@@ -4,6 +4,7 @@ import br.com.ciss.funcionario.entities.Funcionario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,6 +20,12 @@ public class FuncionarioCustomRepository {
     }
 
     public Page<Funcionario> findByFilter(Long id, String nome, String sobrenome, String email, String nis, Pageable pageable){
+        Sort sort = pageable.getSort();
+
+        String orderBy = sort.stream()
+                .map(order -> order.getProperty() + " " + order.getDirection().name())
+                .reduce((s1, s2) -> s1 + ", " + s2)
+                .orElse("");
 
         StringBuilder sql = new StringBuilder();
 
@@ -42,6 +49,10 @@ public class FuncionarioCustomRepository {
 
         if(nis != null) {
             sql.append("AND f.nis = :nis ");
+        }
+
+        if(!"".equals(orderBy)){
+            sql.append("ORDER BY f." + orderBy);
         }
 
         var query = entityManager.createQuery(sql.toString(), Funcionario.class);
