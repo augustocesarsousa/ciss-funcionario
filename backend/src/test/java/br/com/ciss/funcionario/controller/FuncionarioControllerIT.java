@@ -31,11 +31,13 @@ public class FuncionarioControllerIT {
 
     private FuncionarioDTO funcionarioDTO;
     private long totalFuncionarios;
+    private long existingId;
 
     @BeforeEach
     void setUp() throws Exception {
         funcionarioDTO = Factory.createFuncionarioDtoTest();
         totalFuncionarios = 15L;
+        existingId = 1L;
     }
 
     @Test
@@ -63,4 +65,11 @@ public class FuncionarioControllerIT {
 
     }
 
+    @Test
+    public void findByIdShouldReturnProductWhenIdExists() throws Exception{
+        mockMvc.perform(get("/funcionarios/{id}", existingId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.nome").exists());
+    }
 }
