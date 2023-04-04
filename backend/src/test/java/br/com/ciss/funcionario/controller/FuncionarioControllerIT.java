@@ -82,6 +82,19 @@ public class FuncionarioControllerIT {
     }
 
     @Test
+    public void createShouldReturnUnprocessableEntityWhenNisIsInvalid() throws Exception {
+        funcionarioDTO.setNis("a");
+        String jsonBody = objectMapper.writeValueAsString((funcionarioDTO));
+
+        mockMvc.perform(post("/funcionarios")
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.errors[0].message").value("O NIS precisa ter 11 dígitos numéricos!"));
+    }
+
+    @Test
     public void findByFilterPagedShouldReturnSortedPageWhenSortByName() throws Exception{
         mockMvc.perform(get("/funcionarios?page=0&size=12&sort=nome,asc"))
                 .andExpect(status().isOk())
