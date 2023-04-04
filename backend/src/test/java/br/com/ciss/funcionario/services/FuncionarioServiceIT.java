@@ -8,10 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @Transactional
@@ -24,11 +23,14 @@ public class FuncionarioServiceIT {
     private long existingId;
     private long noExistingId;
 
+    private long totalFuncionarios;
+
     @BeforeEach
     void setUp() throws Exception {
         funcionarioDTO = Factory.createFuncionarioDtoTest();
         existingId = 1L;
         noExistingId = 9999L;
+        totalFuncionarios = 15L;
     }
 
     @Test
@@ -50,5 +52,17 @@ public class FuncionarioServiceIT {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
             funcionarioService.findById(noExistingId);
         });
+    }
+
+    @Test
+    public void findByFilterPagedShouldReturnPageWhenPage0Size10() {
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        Page<FuncionarioDTO> result = funcionarioService.findByFilterPaged(null, null, null, null, null, pageRequest);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(0, result.getNumber());
+        Assertions.assertEquals(10, result.getSize());
+        Assertions.assertEquals(totalFuncionarios, result.getTotalElements());
     }
 }
