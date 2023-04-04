@@ -2,15 +2,30 @@ package br.com.ciss.funcionario.dtos;
 
 import br.com.ciss.funcionario.entities.Funcionario;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class FuncionarioDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @Size(min = 2, max = 30, message = "Nome precisa ter entre 2 e 30 caracteres!")
+    @NotBlank(message = "Campo obrigatório!")
     private String nome;
+
+    @Size(min = 2, max = 50, message = "Sobrenome precisa ter entre 2 e 50 caracteres!")
+    @NotBlank(message = "Campo obrigatório!")
     private String sobrenome;
+
+    @Email(message = "Informe um email válido!")
     private String email;
+
+    @Pattern(regexp = "[0-9]{11}", message = "O NIS precisa ter 11 dígitos numéricos!")
+    @NotBlank(message = "Campo obrigatório")
     private String nis;
 
     public FuncionarioDTO() {
