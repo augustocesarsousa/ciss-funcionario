@@ -36,15 +36,19 @@ public class FuncionarioControllerTests {
 
     private FuncionarioDTO funcionarioDTO;
     private PageImpl<FuncionarioDTO> page;
+    private long existingId;
 
     @BeforeEach
     void setUp() throws Exception {
         funcionarioDTO = Factory.createFuncionarioDtoTest();
         page = new PageImpl<>(List.of(funcionarioDTO));
+        existingId = 1L;
 
         when(funcionarioService.create(any())).thenReturn(funcionarioDTO);
 
         when(funcionarioService.findByFilterPaged(any(), any(), any(), any(), any(), any())).thenReturn(page);
+
+        when(funcionarioService.findById(existingId)).thenReturn(funcionarioDTO);
     }
 
     @Test
@@ -66,5 +70,13 @@ public class FuncionarioControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").exists())
                 .andExpect(jsonPath("$.pageable").exists());
+    }
+
+    @Test
+    public void findByIdShouldReturnProductWhenIdExists() throws Exception{
+        mockMvc.perform(get("/funcionarios/{id}", existingId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.nome").exists());
     }
 }
