@@ -103,4 +103,10 @@ public class FuncionarioServiceIT {
         Assertions.assertEquals(totalFuncionarios - 1, funcionarioRepository.count());
     }
 
+    @Test
+    public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExistis() {
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+            funcionarioService.delete(noExistingId);
+        });
+    }
 }
