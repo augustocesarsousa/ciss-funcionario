@@ -88,6 +88,19 @@ public class FuncionarioControllerTests {
     }
 
     @Test
+    public void createShouldReturnUnprocessableEntityWhenEmailIsInvalid() throws Exception {
+        funcionarioDTO.setEmail("a");
+        String jsonBody = objectMapper.writeValueAsString((funcionarioDTO));
+
+        mockMvc.perform(post("/funcionarios")
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.errors[0].message").value("Informe um email válido!"));
+    }
+
+    @Test
     public void findByFilterPagedShouldReturnPage() throws Exception {
         mockMvc.perform(get("/funcionarios"))
                 .andExpect(status().isOk())
