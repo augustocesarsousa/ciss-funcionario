@@ -12,7 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import java.util.Optional;
 
 @DataJpaTest
-public class FuncionarioRepositoryTest {
+public class FuncionarioRepositoryTests {
 
     private FuncionarioRepository funcionarioRepository;
     private long totalFuncionarios;
@@ -20,7 +20,7 @@ public class FuncionarioRepositoryTest {
     private long noExistigId;
 
     @Autowired
-    public FuncionarioRepositoryTest(FuncionarioRepository funcionarioRepository) {
+    public FuncionarioRepositoryTests(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
     }
 
