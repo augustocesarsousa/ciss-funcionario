@@ -60,9 +60,18 @@ public class FuncionarioServiceIT {
 
         Page<FuncionarioDTO> result = funcionarioService.findByFilterPaged(null, null, null, null, null, pageRequest);
 
-        Assertions.assertNotNull(result);
+        Assertions.assertFalse(result.isEmpty());
         Assertions.assertEquals(0, result.getNumber());
         Assertions.assertEquals(10, result.getSize());
         Assertions.assertEquals(totalFuncionarios, result.getTotalElements());
+    }
+
+    @Test
+    public void findByFilterPagedShouldReturnEmptyPageWhenPageDoesNotExists() {
+        PageRequest pageRequest = PageRequest.of(100, 10);
+
+        Page<FuncionarioDTO> result = funcionarioService.findByFilterPaged(null, null, null, null, null, pageRequest);
+
+        Assertions.assertTrue(result.isEmpty());
     }
 }
