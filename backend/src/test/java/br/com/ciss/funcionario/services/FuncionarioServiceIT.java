@@ -1,6 +1,7 @@
 package br.com.ciss.funcionario.services;
 
 import br.com.ciss.funcionario.dtos.FuncionarioDTO;
+import br.com.ciss.funcionario.repositories.FuncionarioRepository;
 import br.com.ciss.funcionario.services.exceptions.ResourceNotFoundException;
 import br.com.ciss.funcionario.tests.Factory;
 import org.junit.jupiter.api.Assertions;
@@ -21,6 +22,9 @@ public class FuncionarioServiceIT {
 
     @Autowired
     private FuncionarioService funcionarioService;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
     private FuncionarioDTO funcionarioDTO;
     private long existingId;
@@ -91,4 +95,12 @@ public class FuncionarioServiceIT {
             funcionarioService.update(noExistingId, funcionarioDTO);
         });
     }
+
+    @Test
+    public void deleteShouldDeleteResourceWhenIdExistis() {
+        funcionarioService.delete(existingId);
+
+        Assertions.assertEquals(totalFuncionarios - 1, funcionarioRepository.count());
+    }
+
 }
