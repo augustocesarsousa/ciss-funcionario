@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -56,6 +57,8 @@ public class FuncionarioControllerTests {
 
         when(funcionarioService.update(eq(existingId), any())).thenReturn(funcionarioDTO);
         when(funcionarioService.update(eq(noExistingId), any())).thenThrow(ResourceNotFoundException.class);
+
+        doNothing().when(funcionarioService).delete(existingId);
     }
 
     @Test
@@ -115,5 +118,11 @@ public class FuncionarioControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void deleteShouldDoNothingWhenIdExists() throws Exception {
+        mockMvc.perform(delete("/funcionarios/{id}", existingId))
+                .andExpect(status().isNoContent());
     }
 }
