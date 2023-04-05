@@ -7,7 +7,16 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    children: [{ path: '', component: HomeComponent }],
+    children: [
+      { path: '', component: HomeComponent },
+      {
+        path: 'funcionarios',
+        loadChildren: () =>
+          import('./pages/funcionarios/funcionarios.module').then(
+            (m) => m.FuncionariosModule
+          ),
+      },
+    ],
   },
 ];
 

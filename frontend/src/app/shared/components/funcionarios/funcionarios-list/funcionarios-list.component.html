@@ -1,0 +1,49 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Sobrenome</th>
+      <th>E-mail</th>
+      <th>NIS</th>
+      <th></th>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let funcionario of page.content">
+        <td class="align-middle">{{ funcionario.id }}</td>
+        <td class="align-middle">{{ funcionario.nome }}</td>
+        <td class="align-middle">{{ funcionario.sobrenome }}</td>
+        <td class="align-middle">{{ funcionario.email }}</td>
+        <td class="align-middle">{{ funcionario.nis }}</td>
+        <td class="align-middle">
+          <button class="btn btn-warning">Editar</button>
+        </td>
+        <td class="align-middle">
+          <button class="btn btn-danger">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-center pagination-container mt-3">
+  <nav>
+    <ul class="pagination pagination-content">
+      <li class="page-item" [ngClass]="page.first ? 'disabled' : ''">
+        <button class="page-link" (click)="getFuncionarios(page.number - 1, 5)">
+          Anterior
+        </button>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link numeration">
+          {{ page.number + 1 }}/{{ page.totalPages }}
+        </span>
+      </li>
+      <li class="page-item" [ngClass]="page.last ? 'disabled' : ''">
+        <button class="page-link" (click)="getFuncionarios(page.number + 1, 5)">
+          Próxima
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>
