@@ -1,14 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --black: #000;
+  --blue: #3279bb;
+  --gray: #ccc;
+  --gray-50: #888888;
+  --green: #4fb746;
+  --red: #e02020;
+  --white: #fff;
+}
+
 * {
-    font-family: 'Ubuntu', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: 0.3s ease all;
 }
 
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 h1,
@@ -17,15 +28,15 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 a,
 a:hover {
-    text-decoration: none;
-    color: unset;
+  text-decoration: none;
+  color: unset;
 }
