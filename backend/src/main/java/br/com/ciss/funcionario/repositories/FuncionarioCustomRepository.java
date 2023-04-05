@@ -1,14 +1,16 @@
 package br.com.ciss.funcionario.repositories;
 
-import br.com.ciss.funcionario.entities.Funcionario;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import java.util.List;
+import br.com.ciss.funcionario.entities.Funcionario;
 
 @Repository
 public class FuncionarioCustomRepository {
@@ -19,7 +21,8 @@ public class FuncionarioCustomRepository {
         this.entityManager = entityManager;
     }
 
-    public Page<Funcionario> findByFilter(Long id, String nome, String sobrenome, String email, String nis, Pageable pageable){
+    public Page<Funcionario> findByFilter(Long id, String nome, String sobrenome, String email, String nis,
+            Pageable pageable) {
         Sort sort = pageable.getSort();
 
         String orderBy = sort.stream()
@@ -31,49 +34,49 @@ public class FuncionarioCustomRepository {
 
         sql.append("SELECT f FROM Funcionario f WHERE 1=1 ");
 
-        if(id != null) {
+        if (id != null) {
             sql.append("AND f.id = :id ");
         }
 
-        if(nome != null) {
-            sql.append("AND f.nome like :nome ");
+        if (nome != null) {
+            sql.append("AND LOWER(f.nome) LIKE :nome ");
         }
 
-        if(sobrenome != null) {
-            sql.append("AND f.sobrenome like :sobrenome ");
+        if (sobrenome != null) {
+            sql.append("AND LOWER(f.sobrenome) LIKE :sobrenome ");
         }
 
-        if(email != null) {
+        if (email != null) {
             sql.append("AND f.email = :email ");
         }
 
-        if(nis != null) {
+        if (nis != null) {
             sql.append("AND f.nis = :nis ");
         }
 
-        if(!"".equals(orderBy)){
+        if (!"".equals(orderBy)) {
             sql.append("ORDER BY f." + orderBy);
         }
 
         var query = entityManager.createQuery(sql.toString(), Funcionario.class);
 
-        if(id != null) {
+        if (id != null) {
             query.setParameter("id", id);
         }
 
-        if(nome != null) {
+        if (nome != null) {
             query.setParameter("nome", "%" + nome + "%");
         }
 
-        if(sobrenome != null) {
+        if (sobrenome != null) {
             query.setParameter("sobrenome", "%" + sobrenome + "%");
         }
 
-        if(email != null) {
+        if (email != null) {
             query.setParameter("email", email);
         }
 
-        if(nis != null) {
+        if (nis != null) {
             query.setParameter("nis", nis);
         }
 

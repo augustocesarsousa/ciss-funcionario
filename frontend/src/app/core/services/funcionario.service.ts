@@ -18,9 +18,10 @@ export class FuncionarioService {
     let url: string = baseUrl + `?page=${filter.page}&size=${filter.size}`;
 
     if (filter.id !== 0) url += `&id=${filter.id}`;
-    if (filter.nome !== '') url += `&nome=${filter.nome}`;
-    if (filter.sobrenome !== '') url += `&sobrenome=${filter.sobrenome}`;
-    if (filter.email !== '') url += `&email=${filter.email}`;
+    if (filter.nome !== '') url += `&nome=${filter.nome.toLowerCase()}`;
+    if (filter.sobrenome !== '')
+      url += `&sobrenome=${filter.sobrenome.toLowerCase()}`;
+    if (filter.email !== '') url += `&email=${filter.email.toLowerCase()}`;
     if (filter.nis !== '') url += `&nis=${filter.nis}`;
 
     console.log(url);
