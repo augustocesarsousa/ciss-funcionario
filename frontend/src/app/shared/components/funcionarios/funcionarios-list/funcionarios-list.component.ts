@@ -53,15 +53,6 @@ export class FuncionariosListComponent implements OnInit {
     this.getFuncionarios();
   }
 
-  public getFuncionarios(): void {
-    this.funcionarioService.findByFilterPaged(this.filter).subscribe((res) => {
-      this.page = res;
-      if (this.page.numberOfElements === 0) {
-        this.toast.warning('Nenhum registro encontrado!');
-      }
-    });
-  }
-
   private createForm() {
     return this.formBuilder.group({
       idFuncionario: [null],
@@ -110,5 +101,32 @@ export class FuncionariosListComponent implements OnInit {
     this.filter.size = size;
 
     this.getFuncionarios();
+  }
+
+  public getFuncionarios(): void {
+    this.funcionarioService.findByFilterPaged(this.filter).subscribe((res) => {
+      this.page = res;
+      if (this.page.numberOfElements === 0) {
+        this.toast.warning('Nenhum registro encontrado!');
+      }
+    });
+  }
+
+  public delete(idFuncionario: number, nomeFuncionario: string): void {
+    if (
+      confirm(`Deseja realmente excluir o funcionário(a) ${nomeFuncionario}`)
+    ) {
+      this.funcionarioService.delete(idFuncionario).subscribe(
+        (res) => {
+          this.getFuncionarios();
+          this.toast.success(
+            `Funcionário(a) ${nomeFuncionario} excluído com sucesso!`
+          );
+        },
+        (err) => {
+          err.error.errors.map((e: any) => this.toast.error(e.message));
+        }
+      );
+    }
   }
 }

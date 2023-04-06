@@ -84,7 +84,6 @@ export class FuncionarioEditComponent implements OnInit {
         this.nisFuncionario = res.nis;
       },
       (err) => {
-        console.log(err);
         this.toast.error(err.error.message);
       }
     );
@@ -97,15 +96,12 @@ export class FuncionarioEditComponent implements OnInit {
     this.funcionario.email = this.emailFuncionario;
     this.funcionario.nis = this.nisFuncionario;
 
-    console.log(this.funcionario);
-
     this.funcionarioService.update(this.funcionario).subscribe(
       (res) => {
         this.route.navigate(['/funcionarios']);
         this.toast.success('Funcionário editado com sucesso!');
       },
       (err) => {
-        console.log(err);
         err.error.errors.map((e: any) => this.toast.error(e.message));
       }
     );

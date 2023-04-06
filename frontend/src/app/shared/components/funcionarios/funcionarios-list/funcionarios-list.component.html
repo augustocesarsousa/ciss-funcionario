@@ -121,7 +121,12 @@
             </button>
           </td>
           <td class="align-middle">
-            <button class="btn btn-danger">Excluir</button>
+            <button
+              class="btn btn-danger"
+              (click)="delete(funcionario.id, funcionario.nome)"
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       </tbody>

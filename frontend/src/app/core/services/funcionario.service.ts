@@ -51,4 +51,8 @@ export class FuncionarioService {
 
     return this.http.put(baseUrl + `/${funcionario.id}`, body, options);
   }
+
+  public delete(idFuncionario: number): Observable<any> {
+    return this.http.delete(baseUrl + `/${idFuncionario}`);
+  }
 }
