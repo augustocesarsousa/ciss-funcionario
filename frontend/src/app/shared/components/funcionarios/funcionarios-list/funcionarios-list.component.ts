@@ -125,7 +125,7 @@ export class FuncionariosListComponent implements OnInit {
     ) {
       this.funcionarioService.delete(idFuncionario).subscribe(
         (res) => {
-          this.getFuncionarios();
+          this.clear();
           this.toast.success(
             `Funcionário(a) ${nomeFuncionario} excluído com sucesso!`
           );
@@ -135,5 +135,17 @@ export class FuncionariosListComponent implements OnInit {
         }
       );
     }
+  }
+
+  public clear(): void {
+    this.filter.id = 0;
+    this.filter.nome = '';
+    this.filter.sobrenome = '';
+    this.filter.email = '';
+    this.filter.nis = '';
+
+    this.form.reset();
+
+    this.getFuncionarios();
   }
 }

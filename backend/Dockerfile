@@ -1,10 +1,8 @@
-FROM maven:3.8.6-sapmachine-17 as build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+FROM maven:3.8.4 AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src/app
+RUN mvn -f /usr/src/app/pom.xml clean package
 
-FROM openjdk:17
-WORKDIR /app
-COPY target/funcionario-0.0.1-SNAPSHOT.jar /app
-
-CMD ["java", "-jar", "/app/funcionario-0.0.1-SNAPSHOT.jar"]
+FROM openjdk:17 AS jdk
+COPY --from=build /usr/src/app/target/*.jar /app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
