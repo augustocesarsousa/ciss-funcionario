@@ -32,3 +32,148 @@ Da entrega dos fontes:
 
 Obs.:
 Pode utilizar banco de dados ou em memória.
+
+---
+
+## Desafio
+
+### Backend
+
+- Linguagem: Java
+- Framework: Spring Boot
+- Banco de dados: H2 (memória)
+
+### CRUD
+
+- Padrão DTO
+
+- Projeto em camadas
+
+  - Entity
+  - Repository
+  - Custom Respository
+  - Service
+  - Controller
+
+- Consulta ao banco
+
+  - JPQL
+  - Query Methods
+
+- Tratamento de exceções
+
+  - Exceções customizadas
+  - Bean Validation
+  - Constraint Validator
+
+- Testes
+
+  - Testes unitários
+  - Testes de integração
+  - JUnit
+  - Mockito & MockBean
+
+- Documentação
+  - Swagger
+
+## Frontend
+
+- Linguagem: TypeScript
+- Framework: Angular
+
+### Layout e navegação
+
+- HTML
+- CSS
+  - Bootstrap
+  - Responsividade
+- Rotas
+  - RouterModule
+- Comunicação com API
+  - HttpClient
+    - GET
+    - POST
+    - PUT
+    - DELETE
+- Formulários
+  - ReactiveForms
+- Paginação e filtros
+- Notificações
+  - ToastrModule
+
+## Deploy
+
+- Docker
+- DockerCompose
+
+## Imagens do projeto
+
+**Backend**
+
+1. Swagger
+
+![Backend Swagger](/images/01-swagger.jpg)
+
+**Frontend**
+
+1. Tela inicial
+
+![Frontend tela inicial](/images/02-tela-inicial.jpg)
+
+2. Tela consulta
+
+![Frontend tela consulta](/images/03-tela-consulta.jpg)
+
+3. Tela cadastro
+
+![Frontend tela cadastro](/images/04-tela-cadastro.jpg)
+
+3. Tela edição
+
+![Frontend tela edição](/images/05-tela-edicao.jpg)
+
+## Executando o projeto
+
+### Docker
+
+- Requisitos:
+
+  - Docker;
+  - Docker-compose.
+
+Executar o comando abaixo via terminal na rais do projeto:
+
+```
+docker-compose up
+```
+
+### Manual
+
+**Backend**
+
+- Requisitos
+
+  - Java 17
+  - Maven 3.8.x
+
+Executar os comandos abaixo via terminal na pasta backend:
+
+```
+mvn install
+mvn spring-boot:run
+```
+
+**Frontend**
+
+- Requisitos
+
+  - Node 14
+  - Npm (compatíval com a versão do Node)
+  - Angular 15
+
+Executar os comandos abaixo via terminal na pasta frontend:
+
+```
+npm i
+ng s -o
+```
