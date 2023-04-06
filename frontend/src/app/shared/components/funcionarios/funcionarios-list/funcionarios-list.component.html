@@ -96,17 +96,27 @@
   <div class="table-responsive">
     <table class="table">
       <thead>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Sobrenome</th>
-        <th>E-mail</th>
-        <th>NIS</th>
+        <th (click)="sort('id')" class="table-title">
+          ID&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('nome')" class="table-title">
+          Nome&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('sobrenome')" class="table-title">
+          Sobrenome&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('email')" class="table-title">
+          E-mail&nbsp;<i class="fa fa-sort"></i>
+        </th>
+        <th (click)="sort('nis')" class="table-title">
+          NIS&nbsp;<i class="fa fa-sort"></i>
+        </th>
         <th></th>
         <th></th>
       </thead>
 
       <tbody>
-        <tr *ngFor="let funcionario of page.content">
+        <tr *ngFor="let funcionario of page.content | orderBy : key : reverse">
           <td class="align-middle">{{ funcionario.id }}</td>
           <td class="align-middle">{{ funcionario.nome }}</td>
           <td class="align-middle">{{ funcionario.sobrenome }}</td>

@@ -18,6 +18,8 @@ export class FuncionariosListComponent implements OnInit {
   public sobrenomeFuncionario!: string;
   public emailFuncionario!: string;
   public nisFuncionario!: string;
+  public reverse: boolean = false;
+  public key: string = 'id';
 
   public filter: IFilter = {
     id: 0,
@@ -101,6 +103,11 @@ export class FuncionariosListComponent implements OnInit {
     this.filter.size = size;
 
     this.getFuncionarios();
+  }
+
+  public sort(key: string) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
   public getFuncionarios(): void {

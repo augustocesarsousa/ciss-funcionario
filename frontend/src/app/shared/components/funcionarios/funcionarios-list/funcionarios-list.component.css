@@ -5,3 +5,7 @@
 .custom-btn {
   width: 100%;
 }
+
+.table-title {
+  cursor: pointer;
+}

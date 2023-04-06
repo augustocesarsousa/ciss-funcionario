@@ -4,6 +4,8 @@ import { FuncionarioCreateComponent } from 'src/app/shared/components/funcionari
 import { FuncionarioEditComponent } from 'src/app/shared/components/funcionarios/funcionario-edit/funcionario-edit.component';
 import { FuncionariosListComponent } from 'src/app/shared/components/funcionarios/funcionarios-list/funcionarios-list.component';
 
+import { OrderModule } from 'ngx-order-pipe';
+
 const routes: Routes = [
   { path: '', component: FuncionariosListComponent },
   { path: 'create', component: FuncionarioCreateComponent },
@@ -12,6 +14,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule, OrderModule],
 })
 export class FuncionariosRoutingModule {}
