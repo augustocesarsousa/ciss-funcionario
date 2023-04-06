@@ -113,7 +113,12 @@
           <td class="align-middle">{{ funcionario.email }}</td>
           <td class="align-middle">{{ funcionario.nis }}</td>
           <td class="align-middle">
-            <button class="btn btn-warning">Editar</button>
+            <button
+              class="btn btn-warning"
+              routerLink="edit/{{ funcionario.id }}"
+            >
+              Editar
+            </button>
           </td>
           <td class="align-middle">
             <button class="btn btn-danger">Excluir</button>

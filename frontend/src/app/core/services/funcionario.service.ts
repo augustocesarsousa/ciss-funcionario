@@ -28,6 +28,10 @@ export class FuncionarioService {
     return this.http.get<IPage<IFuncionario>>(url);
   }
 
+  public findById(idFuncionario: number): Observable<any> {
+    return this.http.get(baseUrl + `/${idFuncionario}`);
+  }
+
   public create(funcionario: IFuncionarioCreate): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -36,5 +40,15 @@ export class FuncionarioService {
     const body = JSON.stringify(funcionario);
 
     return this.http.post(baseUrl, body, options);
+  }
+
+  public update(funcionario: IFuncionario): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    const options = { headers: headers };
+    const body = JSON.stringify(funcionario);
+
+    return this.http.put(baseUrl + `/${funcionario.id}`, body, options);
   }
 }

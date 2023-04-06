@@ -43,7 +43,8 @@ export class FuncionariosListComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private funcionarioService: FuncionarioService
+    private funcionarioService: FuncionarioService,
+    private toast: ToastrService
   ) {
     this.form = this.createForm();
   }
@@ -55,6 +56,9 @@ export class FuncionariosListComponent implements OnInit {
   public getFuncionarios(): void {
     this.funcionarioService.findByFilterPaged(this.filter).subscribe((res) => {
       this.page = res;
+      if (this.page.numberOfElements === 0) {
+        this.toast.warning('Nenhum registro encontrado!');
+      }
     });
   }
 

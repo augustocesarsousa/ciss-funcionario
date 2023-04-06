@@ -11,6 +11,7 @@ import { LayoutComponent } from './shared/components/layout/layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FuncionarioCreateComponent } from './shared/components/funcionarios/funcionario-create/funcionario-create.component';
 import { ToastrModule } from 'ngx-toastr';
+import { FuncionarioEditComponent } from './shared/components/funcionarios/funcionario-edit/funcionario-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
     LayoutComponent,
     HomeComponent,
     FuncionarioCreateComponent,
+    FuncionarioEditComponent,
   ],
   imports: [
     BrowserModule,

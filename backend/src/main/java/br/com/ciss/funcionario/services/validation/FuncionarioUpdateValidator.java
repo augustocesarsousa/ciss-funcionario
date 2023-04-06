@@ -29,13 +29,13 @@ public class FuncionarioUpdateValidator implements ConstraintValidator<Funcionar
 
         Funcionario funcionario = funcionarioRepository.findByEmail(funcionarioUpdateDTO.getEmail());
 
-        if (funcionario != null) {
+        if (funcionario != null && funcionario.getId() != funcionarioUpdateDTO.getId()) {
             list.add((new FieldMessage("email" , "Email já cadastrado para o funcionário id = " + funcionario.getId() + "!")));
         }
 
         funcionario = funcionarioRepository.findByNis(funcionarioUpdateDTO.getNis());
 
-        if (funcionario != null) {
+        if (funcionario != null && funcionario.getId() != funcionarioUpdateDTO.getId()) {
             list.add((new FieldMessage("nis" , "NIS já cadastrado para o funcionário id = " + funcionario.getId() + "!")));
         }
 
