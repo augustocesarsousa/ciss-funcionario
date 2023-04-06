@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  backend:
+    container_name: ciss-crud-funcionario-back
+    build: ./backend
+    ports:
+      - "8081:8080"
+  frontend:
+    container_name: ciss-crud-funcionario-front
+    build: ./frontend
+    ports:
+      - "4201:4200"
+    depends_on:
+      - backend
+
