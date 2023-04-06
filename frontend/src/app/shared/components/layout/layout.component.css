@@ -1,8 +1,5 @@
-.nav-content {
-  display: flex;
-  justify-content: space-between;
-  min-width: 100%;
-  max-width: 1200px;
+.navbar-brand {
+  margin: 0;
 }
 
 .custom-toggler.navbar-toggler {

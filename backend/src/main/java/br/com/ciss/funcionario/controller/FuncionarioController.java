@@ -1,7 +1,10 @@
 package br.com.ciss.funcionario.controller;
 
 import java.net.URI;
+
+import br.com.ciss.funcionario.dtos.FuncionarioCreateDTO;
 import br.com.ciss.funcionario.dtos.FuncionarioDTO;
+import br.com.ciss.funcionario.dtos.FuncionarioUpdateDTO;
 import br.com.ciss.funcionario.services.FuncionarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +26,7 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity<FuncionarioDTO> create(@Valid @RequestBody FuncionarioDTO funcionarioDTO) {
+    public ResponseEntity<FuncionarioCreateDTO> create(@Valid @RequestBody FuncionarioCreateDTO funcionarioDTO) {
         funcionarioDTO = funcionarioService.create(funcionarioDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(funcionarioDTO.getId()).toUri();
@@ -53,10 +56,10 @@ public class FuncionarioController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<FuncionarioDTO> update(@PathVariable Long id, @Valid @RequestBody FuncionarioDTO funcionarioDTO) {
-        funcionarioDTO = funcionarioService.update(id, funcionarioDTO);
+    public ResponseEntity<FuncionarioUpdateDTO> update(@PathVariable Long id, @Valid @RequestBody FuncionarioUpdateDTO funcionarioUpdateDTO) {
+        funcionarioUpdateDTO = funcionarioService.update(id, funcionarioUpdateDTO);
 
-        return ResponseEntity.ok().body(funcionarioDTO);
+        return ResponseEntity.ok().body(funcionarioUpdateDTO);
     }
 
     @DeleteMapping(value = "/{id}")

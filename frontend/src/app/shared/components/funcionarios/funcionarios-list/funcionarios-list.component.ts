@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { FuncionarioService } from 'src/app/core/services/funcionario.service';
 import { IFilter } from 'src/app/shared/models/filter.model';
 import { IFuncionario } from 'src/app/shared/models/funcionario.model';

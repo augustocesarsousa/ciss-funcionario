@@ -1,6 +1,8 @@
 package br.com.ciss.funcionario.services;
 
+import br.com.ciss.funcionario.dtos.FuncionarioCreateDTO;
 import br.com.ciss.funcionario.dtos.FuncionarioDTO;
+import br.com.ciss.funcionario.dtos.FuncionarioUpdateDTO;
 import br.com.ciss.funcionario.repositories.FuncionarioRepository;
 import br.com.ciss.funcionario.services.exceptions.ResourceNotFoundException;
 import br.com.ciss.funcionario.tests.Factory;
@@ -24,6 +26,8 @@ public class FuncionarioServiceIT {
     private FuncionarioRepository funcionarioRepository;
 
     private FuncionarioDTO funcionarioDTO;
+    private FuncionarioCreateDTO funcionarioCreateDTO;
+    private FuncionarioUpdateDTO funcionarioUpdateDTO;
     private long existingId;
     private long noExistingId;
     private long totalFuncionarios;
@@ -31,14 +35,16 @@ public class FuncionarioServiceIT {
     @BeforeEach
     void setUp() throws Exception {
         funcionarioDTO = Factory.createFuncionarioDtoTest();
+        funcionarioCreateDTO = Factory.createFuncionarioCreateDtoTest();
+        funcionarioUpdateDTO = Factory.createFuncionarioUpdateDtoTest();
         existingId = 1L;
         noExistingId = 9999L;
         totalFuncionarios = 15L;
     }
 
     @Test
-    public void createShouldReturnFuncionarioDto() {
-        FuncionarioDTO result = funcionarioService.create(funcionarioDTO);
+    public void createShouldReturnFuncionarioCreatDto() {
+        FuncionarioCreateDTO result = funcionarioService.create(funcionarioCreateDTO);
 
         Assertions.assertNotNull(result);
     }
@@ -80,7 +86,7 @@ public class FuncionarioServiceIT {
 
     @Test
     public void updateShouldReturnFuncionarioDtoWhenIdExists() {
-        FuncionarioDTO result = funcionarioService.update(existingId, funcionarioDTO);
+        FuncionarioDTO result = funcionarioService.update(existingId, funcionarioUpdateDTO);
 
         Assertions.assertNotNull(result);
     }
@@ -88,7 +94,7 @@ public class FuncionarioServiceIT {
     @Test
     public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-            funcionarioService.update(noExistingId, funcionarioDTO);
+            funcionarioService.update(noExistingId, funcionarioUpdateDTO);
         });
     }
 

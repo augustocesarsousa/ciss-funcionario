@@ -8,6 +8,7 @@
           id="inputIdFuncionario"
           class="form-control me-1"
           type="number"
+          min="0"
           name="inputIdFuncionario"
           formControlName="idFuncionario"
           [(ngModel)]="idFuncionario"
@@ -67,6 +68,7 @@
           id="inputNisFuncionario"
           class="form-control me-1"
           type="number"
+          min="0"
           name="inputNisFuncionario"
           formControlName="nisFuncionario"
           [(ngModel)]="nisFuncionario"
@@ -94,11 +96,11 @@
   <div class="table-responsive">
     <table class="table">
       <thead>
-        <th class="text-center">ID</th>
-        <th class="text-center">Nome</th>
-        <th class="text-center">Sobrenome</th>
-        <th class="text-center">E-mail</th>
-        <th class="text-center">NIS</th>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>E-mail</th>
+        <th>NIS</th>
         <th></th>
         <th></th>
       </thead>

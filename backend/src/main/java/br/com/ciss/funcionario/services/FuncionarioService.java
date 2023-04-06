@@ -1,6 +1,8 @@
 package br.com.ciss.funcionario.services;
 
+import br.com.ciss.funcionario.dtos.FuncionarioCreateDTO;
 import br.com.ciss.funcionario.dtos.FuncionarioDTO;
+import br.com.ciss.funcionario.dtos.FuncionarioUpdateDTO;
 import br.com.ciss.funcionario.entities.Funcionario;
 import br.com.ciss.funcionario.repositories.FuncionarioRepository;
 import br.com.ciss.funcionario.repositories.FuncionarioCustomRepository;
@@ -26,14 +28,14 @@ public class FuncionarioService {
     }
 
     @Transactional
-    public FuncionarioDTO create(FuncionarioDTO funcionarioDTO) {
+    public FuncionarioCreateDTO create(FuncionarioCreateDTO funcionarioDTO) {
         Funcionario funcionario = new Funcionario();
 
         CopyDtoToEntity.copyFuncionarioDtoToFuncionario(funcionarioDTO, funcionario);
 
         funcionario = funcionarioRepository.save(funcionario);
 
-        return new FuncionarioDTO(funcionario);
+        return new FuncionarioCreateDTO(funcionario);
     }
 
     @Transactional(readOnly = true)
@@ -56,16 +58,16 @@ public class FuncionarioService {
     }
 
     @Transactional
-    public FuncionarioDTO update(Long id, FuncionarioDTO funcionarioDTO) {
+    public FuncionarioUpdateDTO update(Long id, FuncionarioUpdateDTO funcionarioUpdateDTO) {
         Optional<Funcionario> funcionarioOptional = funcionarioRepository.findById(id);
 
         Funcionario funcionario = funcionarioOptional.orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado!"));
 
-        CopyDtoToEntity.copyFuncionarioDtoToFuncionario(funcionarioDTO, funcionario);
+        CopyDtoToEntity.copyFuncionarioDtoToFuncionario(funcionarioUpdateDTO, funcionario);
 
         funcionario = funcionarioRepository.save(funcionario);
 
-        return new FuncionarioDTO(funcionario);
+        return new FuncionarioUpdateDTO(funcionario);
     }
 
     @Transactional

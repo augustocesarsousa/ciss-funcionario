@@ -1,6 +1,8 @@
 package br.com.ciss.funcionario.services;
 
+import br.com.ciss.funcionario.dtos.FuncionarioCreateDTO;
 import br.com.ciss.funcionario.dtos.FuncionarioDTO;
+import br.com.ciss.funcionario.dtos.FuncionarioUpdateDTO;
 import br.com.ciss.funcionario.entities.Funcionario;
 import br.com.ciss.funcionario.repositories.FuncionarioCustomRepository;
 import br.com.ciss.funcionario.repositories.FuncionarioRepository;
@@ -39,6 +41,8 @@ public class FuncionarioServiceTests {
 
     private Funcionario funcionario;
     private FuncionarioDTO funcionarioDTO;
+    private FuncionarioCreateDTO funcionarioCreateDTO;
+    private FuncionarioUpdateDTO funcionarioUpdateDTO;
     private long existingId;
     private long noExistingId;
     private Pageable pageable;
@@ -48,6 +52,8 @@ public class FuncionarioServiceTests {
     void setUp() throws Exception {
         funcionario = Factory.createFuncionarioTest();
         funcionarioDTO = Factory.createFuncionarioDtoTest();
+        funcionarioCreateDTO = Factory.createFuncionarioCreateDtoTest();
+        funcionarioUpdateDTO = Factory.createFuncionarioUpdateDtoTest();
         existingId = 1L;
         noExistingId = 9999L;
         pageable = PageRequest.of(0, 10);
@@ -67,7 +73,7 @@ public class FuncionarioServiceTests {
     public void createShouldReturnFuncionarioDtoWhenIdIsNull() {
         funcionarioDTO.setId(null);
 
-        FuncionarioDTO result = funcionarioService.create(funcionarioDTO);
+        FuncionarioDTO result = funcionarioService.create(funcionarioCreateDTO);
 
         Assertions.assertNotNull(result.getId());
     }
@@ -96,8 +102,8 @@ public class FuncionarioServiceTests {
     }
 
     @Test
-    public void updateShouldReturnFuncionarioDtoWhenIdExists() {
-        FuncionarioDTO result = funcionarioService.update(existingId, funcionarioDTO);
+    public void updateShouldReturnFuncionarioUpdateDtoWhenIdExists() {
+        FuncionarioUpdateDTO result = funcionarioService.update(existingId, funcionarioUpdateDTO);
 
         Assertions.assertNotNull(result);
         verify(funcionarioRepository, times(1)).save(funcionario);
@@ -106,7 +112,7 @@ public class FuncionarioServiceTests {
     @Test
     public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-            funcionarioService.update(noExistingId, funcionarioDTO);
+            funcionarioService.update(noExistingId, funcionarioUpdateDTO);
         });
     }
 
