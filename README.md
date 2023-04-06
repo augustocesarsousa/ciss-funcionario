@@ -177,3 +177,8 @@ Executar os comandos abaixo via terminal na pasta frontend:
 npm i
 ng s -o
 ```
+
+### Links
+
+- Backend Swagger: <http://localhost:8081/swagger-ui.html#/>
+- Frontend: <http://localhost:4201/>
