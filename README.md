@@ -86,6 +86,7 @@ Pode utilizar banco de dados ou em memória.
 - HTML
 - CSS
   - Bootstrap
+  - Bootstrap Icons
   - Responsividade
 - Rotas
   - RouterModule
@@ -112,25 +113,33 @@ Pode utilizar banco de dados ou em memória.
 
 1. Swagger
 
-![Backend Swagger](/images/01-swagger.jpg)
+![Backend Swagger](/images/01-swagger.png)
 
 **Frontend**
 
 1. Tela inicial
 
-![Frontend tela inicial](/images/02-tela-inicial.jpg)
+![Frontend tela inicial](/images/02-tela-inicial.png)
 
 2. Tela consulta
 
-![Frontend tela consulta](/images/03-tela-consulta.jpg)
+![Frontend tela consulta](/images/03-tela-consulta.png)
 
 3. Tela cadastro
 
-![Frontend tela cadastro](/images/04-tela-cadastro.jpg)
+![Frontend tela cadastro](/images/04-tela-cadastro.png)
 
-3. Tela edição
+4. Tela edição
 
-![Frontend tela edição](/images/05-tela-edicao.jpg)
+![Frontend tela edição](/images/05-tela-edicao.png)
+
+5. Modal de confirmação
+
+![Frontend modal de confirmação](/images/06-modal-confirmacao.png)
+
+6. Footer
+
+![Frontend footer](/images/07-footer.png)
 
 ## Executando o projeto
 

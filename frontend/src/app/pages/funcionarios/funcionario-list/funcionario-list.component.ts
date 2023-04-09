@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgxConfirmBoxService } from 'ngx-confirm-box';
 import { ToastrService } from 'ngx-toastr';
 import { FuncionarioService } from 'src/app/core/services/funcionario.service';
 import { IFilter } from 'src/app/shared/models/filter.model';
@@ -48,8 +47,7 @@ export class FuncionariosListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private funcionarioService: FuncionarioService,
-    private toast: ToastrService,
-    private confirmBox: NgxConfirmBoxService
+    private toast: ToastrService
   ) {
     this.form = this.createForm();
   }
