@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FuncionarioService } from 'src/app/core/services/funcionario.service';
-import { IFuncionarioCreate } from 'src/app/shared/models/funcionario-create.model';
+import { IFuncionario } from 'src/app/shared/models/funcionario.model';
 
 @Component({
-  selector: 'app-funcionario-create',
-  templateUrl: './funcionario-create.component.html',
-  styleUrls: ['./funcionario-create.component.css'],
+  selector: 'app-funcionario-edit',
+  templateUrl: './funcionario-edit.component.html',
+  styleUrls: ['./funcionario-edit.component.css'],
 })
-export class FuncionarioCreateComponent implements OnInit {
+export class FuncionarioEditComponent implements OnInit {
   public form: FormGroup;
+  public idFuncionario!: number;
   public nomeFuncionario!: string;
   public sobrenomeFuncionario!: string;
   public emailFuncionario!: string;
   public nisFuncionario!: string;
+  public link: string = 'funcionarios';
 
-  public funcionario: IFuncionarioCreate = {
+  public funcionario: IFuncionario = {
+    id: 0,
     nome: '',
     sobrenome: '',
     email: '',
@@ -26,6 +29,7 @@ export class FuncionarioCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private activedRoute: ActivatedRoute,
     private funcionarioService: FuncionarioService,
     private toast: ToastrService,
     private route: Router
@@ -33,10 +37,14 @@ export class FuncionarioCreateComponent implements OnInit {
     this.form = this.createForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.idFuncionario = Number(this.activedRoute.snapshot.paramMap.get('id'));
+    this.findById(this.idFuncionario);
+  }
 
   private createForm() {
     return this.formBuilder.group({
+      idFuncionario: [null],
       nomeFuncionario: [
         null,
         [
@@ -61,27 +69,40 @@ export class FuncionarioCreateComponent implements OnInit {
     });
   }
 
-  public isFormControlInvalid(controlName: string): boolean {
+  isFormControlInvalid(controlName: string): boolean {
     return !!(
       this.form.get(controlName)?.invalid && this.form.get(controlName)?.touched
     );
   }
 
-  public create(): void {
+  private findById(idFuncionario: number): void {
+    this.funcionarioService.findById(idFuncionario).subscribe(
+      (res) => {
+        this.idFuncionario = res.id;
+        this.nomeFuncionario = res.nome;
+        this.sobrenomeFuncionario = res.sobrenome;
+        this.emailFuncionario = res.email;
+        this.nisFuncionario = res.nis;
+      },
+      (err) => {
+        this.toast.error(err.error.message);
+      }
+    );
+  }
+
+  public update(): void {
+    this.funcionario.id = this.idFuncionario;
     this.funcionario.nome = this.nomeFuncionario;
     this.funcionario.sobrenome = this.sobrenomeFuncionario;
     this.funcionario.email = this.emailFuncionario;
     this.funcionario.nis = this.nisFuncionario;
 
-    console.log(this.funcionario);
-
-    this.funcionarioService.create(this.funcionario).subscribe(
+    this.funcionarioService.update(this.funcionario).subscribe(
       (res) => {
         this.route.navigate(['/funcionarios']);
-        this.toast.success('Funcionário cadastrado com sucesso!');
+        this.toast.success('Funcionário editado com sucesso!');
       },
       (err) => {
-        console.log(err);
         err.error.errors.map((e: any) => this.toast.error(e.message));
       }
     );

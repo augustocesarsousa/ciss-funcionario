@@ -1,0 +1,25 @@
+.footer-container {
+  position: absolute;
+  top: 100%;
+}
+
+.footer-container .col-md-4 {
+  margin-bottom: 2em !important;
+}
+
+.footer-link {
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: var(--gray-50) !important;
+}
+
+.footer-link:hover i {
+  color: var(--white);
+}
+
+#footer-bottom p {
+  font-size: 12px;
+  margin-bottom: 2em !important;
+}

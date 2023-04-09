@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxConfirmBoxService } from 'ngx-confirm-box';
 import { ToastrService } from 'ngx-toastr';
 import { FuncionarioService } from 'src/app/core/services/funcionario.service';
 import { IFilter } from 'src/app/shared/models/filter.model';
@@ -7,9 +8,9 @@ import { IFuncionario } from 'src/app/shared/models/funcionario.model';
 import { IPage } from 'src/app/shared/models/page.model';
 
 @Component({
-  selector: 'app-funcionarios-list',
-  templateUrl: './funcionarios-list.component.html',
-  styleUrls: ['./funcionarios-list.component.css'],
+  selector: 'app-funcionario-list',
+  templateUrl: './funcionario-list.component.html',
+  styleUrls: ['./funcionario-list.component.css'],
 })
 export class FuncionariosListComponent implements OnInit {
   public form: FormGroup;
@@ -20,6 +21,7 @@ export class FuncionariosListComponent implements OnInit {
   public nisFuncionario!: string;
   public reverse: boolean = false;
   public key: string = 'id';
+  public link: string = 'funcionarios';
 
   public filter: IFilter = {
     id: 0,
@@ -46,7 +48,8 @@ export class FuncionariosListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private funcionarioService: FuncionarioService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private confirmBox: NgxConfirmBoxService
   ) {
     this.form = this.createForm();
   }
@@ -120,21 +123,17 @@ export class FuncionariosListComponent implements OnInit {
   }
 
   public delete(idFuncionario: number, nomeFuncionario: string): void {
-    if (
-      confirm(`Deseja realmente excluir o funcionário(a) ${nomeFuncionario}`)
-    ) {
-      this.funcionarioService.delete(idFuncionario).subscribe(
-        (res) => {
-          this.clear();
-          this.toast.success(
-            `Funcionário(a) ${nomeFuncionario} excluído com sucesso!`
-          );
-        },
-        (err) => {
-          err.error.errors.map((e: any) => this.toast.error(e.message));
-        }
-      );
-    }
+    this.funcionarioService.delete(idFuncionario).subscribe(
+      (res) => {
+        this.clear();
+        this.toast.success(
+          `Funcionário(a) ${nomeFuncionario} excluído com sucesso!`
+        );
+      },
+      (err) => {
+        err.error.errors.map((e: any) => this.toast.error(e.message));
+      }
+    );
   }
 
   public clear(): void {
